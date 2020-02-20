@@ -1,8 +1,8 @@
 <?php
 
-namespace Kfirba;
+namespace Nmc9\Kfir;
 
-class QueryGenerator
+class OnDuplicateGenerator
 {
     /**
      * Generates a QueryObject with the SQL query and the bindings.
@@ -20,7 +20,7 @@ class QueryGenerator
         $values = $this->buildSQLValuesStringFrom($rows);
         $updates = $this->buildSQLUpdatesStringFrom($columns, $exclude);
 
-        $query = vsprintf('insert into `%s` (`%s`) values %s on duplicate key update %s', [
+        $query = vsprintf('INSERT INTO `%s` (`%s`) VALUES %s ON DUPLICATE KEY UPDATE %s;', [
             $table, $columnsString, $values, $updates,
         ]);
 

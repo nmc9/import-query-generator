@@ -1,5 +1,5 @@
 {
-    "name": "kfirba/import-query-generator",
+    "name": "nmc9/import-query-generator",
     "description": "An efficient query generator for mass resource import, distinguishing between new records and records to update.",
     "type": "library",
     "license": "MIT",
@@ -7,15 +7,24 @@
         {
             "name": "Kfir Bens-Ami",
             "email": "kfirba2@gmail.com"
+        },
+        {
+            "name": "Nick Caruso",
+            "email": "nmc9@pct.edu"
         }
     ],
     "require": {},
     "require-dev": {
-        "phpunit/phpunit": "^6.5"
+        "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "psr-4": {
-            "Kfirba\\": "src/"
+            "Nmc9\\Kfir\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nmc9\\Kfir\\Test\\": "tests"
         }
     }
 }

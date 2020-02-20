@@ -1,7 +1,9 @@
 <?php
 
-use Kfirba\QueryObject;
-use Kfirba\QueryGenerator;
+namespace Tests\Unit;
+
+use Nmc9\Kfir\QueryObject;
+use Nmc9\Kfir\ReplaceGenerator;
 use PHPUnit\Framework\TestCase;
 
 class QueryGeneratorTest extends TestCase
@@ -11,13 +13,13 @@ class QueryGeneratorTest extends TestCase
     {
         $resources = $this->getTestResources();
         $excludedColumnsFromUpdate = ['customer_number', 'password', 'created_at', 'password_valid_until'];
-        $expectedQuery = 'insert into `users` (`customer_number`,`email`,`password`,`name`,`active`,`tax_exempt`,`address`,`phone`,`password_valid_until`,`created_at`,`updated_at`) values (?,?,?,?,?,?,?,?,?,?,?),(?,?,?,?,?,?,?,?,?,?,?) on duplicate key update `email`=VALUES(`email`),`name`=VALUES(`name`),`active`=VALUES(`active`),`tax_exempt`=VALUES(`tax_exempt`),`address`=VALUES(`address`),`phone`=VALUES(`phone`),`updated_at`=VALUES(`updated_at`)';
+        $expectedQuery = 'REPLACE INTO `users` (`customer_number`,`email`,`password`,`name`,`active`,`tax_exempt`,`address`,`phone`,`password_valid_until`,`created_at`,`updated_at`) VALUES (?,?,?,?,?,?,?,?,?,?,?),(?,?,?,?,?,?,?,?,?,?,?);';
         $expectedBindings = [
             1148, 'john@example.com', '$2y$10$umonN4rhJkJFOk3nwH34/eok5yRsx5mUFUQE2.VK92P1RyxdDB9bm', 'Super John', true, false, '70 Bowman St. South Windsor, CT 06074', '202-555-0116', '2018-09-13', '2017-09-13', '2017-09-13',
             1150, 'jane@example.com', '$2y$10$umonN4rhJkJFOk3nwH34/eok5yRsx5mUFUQE2.VK92P1RyxdDB9bm', 'Wonder Jane', true, false, '4 Goldfield Rd. Honolulu, HI 96815', '202-555-0143', '2018-06-18', '2017-06-18', '2017-06-18',
         ];
 
-        $queryObject = (new QueryGenerator)->generate('users', $resources, $excludedColumnsFromUpdate);
+        $queryObject = (new ReplaceGenerator)->generate('users', $resources, $excludedColumnsFromUpdate);
 
         $this->assertInstanceOf(QueryObject::class, $queryObject);
         $this->assertEquals($expectedQuery, $queryObject->getQuery());

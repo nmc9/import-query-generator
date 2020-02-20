@@ -1,6 +1,6 @@
 <?php
 
-namespace Kfirba;
+namespace Nmc9\Kfir;
 
 class QueryObject
 {
